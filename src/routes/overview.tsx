@@ -20,7 +20,6 @@ export default function Overview() {
                     <li key={commit.sha}>
                         <h2>{commit.commit.author?.name} <a href={`/${owner}/${repo}/commits/${commit.sha}`}>to commit detail</a></h2>
                         <p>{commit.commit.message}</p>
-
                      </li>
                 );
             })
