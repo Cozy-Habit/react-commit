@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useCommits from "../useCommits";
 
-export default function Overview() {
-    const { owner, repo } = useParams();
-    const commits = useCommits({owner: owner ?? "facebook", repo: repo ?? "react"});
+function OverviewComponent({owner, repo}: {owner:string, repo:string}){
+    
+    const commits = useCommits({owner: owner, repo: repo});
     useEffect(() => {
         console.log(commits);
     }, [commits]);
@@ -15,10 +15,10 @@ export default function Overview() {
             <p>Owner: {owner}</p>
             <p>Repo: {repo}</p>
             <ul>
-            {commits &&   commits.data.map((commit) => {
+            {commits && commits.data.map((commit) => {
                 return (
                     <li key={commit.sha}>
-                        <h2>{commit.commit.author?.name} <a href={`/${owner}/${repo}/commits/${commit.sha}`}>to commit detail</a></h2>
+                        <h2>{commit.commit.author?.name} <Link to={`/${owner}/${repo}/commits/${commit.sha}`}>to commit detail</Link></h2>
                         <p>{commit.commit.message}</p>
                      </li>
                 );
@@ -26,5 +26,20 @@ export default function Overview() {
             }
             </ul>
         </div>
+    );
+}
+
+export default function Overview() {
+    const params = useParams();
+
+    const owner = params.owner;
+    const repo = params.repo;
+
+    if(owner == undefined || repo == undefined){
+        return <div>Owner not found</div>
+    }
+
+    return(
+        <OverviewComponent owner={owner} repo={repo}/>
     );
 }

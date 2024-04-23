@@ -2,7 +2,9 @@ import { Octokit } from "octokit";
 import { useEffect, useState } from "react";
 import { Endpoints } from "@octokit/types";
 
-const octokit = new Octokit();
+const octokit = new Octokit(
+    {auth: import.meta.env.VITE_GITHUBAPI}
+);
 
 export default function useCommit({owner, repo, sha}: {owner:string, repo:string, sha:string}){
 

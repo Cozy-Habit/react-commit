@@ -2,16 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Overview from './routes/overview';
-import Detail from './routes/detail';
-import Input from './routes/Input';
-import handleSubmit from './handleSubmit';
+import Overview from './routes/Overview';
+import Detail from './routes/Detail';
+import Index from './routes/Index';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Input />,
-    action: handleSubmit
+    element: <Index />,
   }, 
   {
     path: "/:owner/:repo",
@@ -28,8 +26,3 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <RouterProvider router={router} />
   </React.StrictMode>,
 )
-
-///{default values}, environment variables, octokit
-
-//{default repo selector}: 
-//two input fields, as soon as button is clicked it is added to the URL as params
